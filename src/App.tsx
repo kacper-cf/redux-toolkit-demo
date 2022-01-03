@@ -1,17 +1,37 @@
-import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
-import { decrement, increment } from './store/counter/counterSlice';
-import { AppDispatch, AppState } from './store/store';
+import { useCallback } from "react";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { Counter } from "./counter/counter";
+import { decrement, increment } from "./store/counter/counterSlice";
+import { AppDispatch, AppState } from "./store/store";
+import { fetchUser } from "./store/user/user";
+import { UserPanel } from "./userPanel/userPanel";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  const state = useSelector((state: AppState) => state.counter)
+  const counter = useSelector((state: AppState) => state.counter);
+  const { user, fetchUserRequest } = useSelector(
+    (state: AppState) => state.user
+  );
+
+  const reloadUser = useCallback(async () => {
+    dispatch(fetchUser());
+  }, []);
+  const incrementByOne = useCallback(() => dispatch(increment()), []);
+  const decrementByOne = useCallback(() => dispatch(decrement()), []);
 
   return (
     <div className="App">
-      <button onClick={() => dispatch(increment())}>+1</button>
-      <button onClick={() => dispatch(decrement())}>-1</button>
-      <div>{state.value}</div>
+      <Counter
+        incrementByOne={incrementByOne}
+        decrementByOne={decrementByOne}
+        value={counter.value}
+      />
+      <UserPanel
+        requestStatus={fetchUserRequest}
+        name={user?.name}
+        surname={user?.surname}
+        reloadUser={reloadUser}
+      />
     </div>
   );
 }
