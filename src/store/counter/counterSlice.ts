@@ -1,5 +1,9 @@
 import { AnyAction, createSlice, ThunkAction } from "@reduxjs/toolkit";
 
+
+const initialState = {
+    value: 0
+}
 export interface CounterState {
     value: number
 }
@@ -8,9 +12,7 @@ export type defaultCounterThunk = ThunkAction<void, CounterState, unknown, AnyAc
 
 export const counterSlice = createSlice({
     name: "counter",
-    initialState: {
-        value: 0
-    },
+    initialState,
     reducers: {
         increment: state => {
             state.value += 1
@@ -18,22 +20,17 @@ export const counterSlice = createSlice({
         decrement: state => {
             state.value -= 1
         },
-        incrementByValue: (state, action) => {
+        incrementByValue: (state, action: { payload: number }) => {
             state.value += action.payload
         },
-        decrementByValue: (state, action: { payload: { value: number } }) => {
-            state.value -= action.payload.value
+        decrementByValue: (state, action: { payload: number }) => {
+            state.value -= action.payload
         }
     }
 })
 
 export const { incrementByValue, increment, decrementByValue, decrement } = counterSlice.actions
-
-export const incrementAsync = (amount: number): defaultCounterThunk => dispatch => {
-    setTimeout(() => {
-        dispatch(incrementByValue(amount))
-    })
-}
-
 export default counterSlice.reducer;
+
+
 
