@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { useReducer } from "react";
+
 import counterReducer from "./counter/counterSlice";
+import userReducer from "./user/userSlice";
 
 export const rootStore = configureStore({
   reducer: {
     counter: counterReducer,
-    user: useReducer,
+    user: userReducer,
   },
 });
 

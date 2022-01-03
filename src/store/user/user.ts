@@ -5,9 +5,11 @@ import { UserModel } from "./userSlice";
 export const fetchUser = createAsyncThunk<UserModel>(
   "user/fetch-user",
   async () => {
-    const response = await axios.get("https://api.namefake.com/");
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
 
-    const user = response.data;
+    const [user] = response.data;
 
     const [name, surname] = user.name.split(" ");
 

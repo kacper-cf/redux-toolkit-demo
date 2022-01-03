@@ -42,7 +42,7 @@ describe("store - user - userSlice", () => {
 
   it("should change user and request status to done and not pending when fetch user request finishes", async () => {
     (axios.get as jest.Mock).mockResolvedValue({
-      data: { name: "Kacper Dąbrowski" },
+      data: [{ name: "Kacper Dąbrowski" }],
     });
 
     await dispatch(fetchUser());

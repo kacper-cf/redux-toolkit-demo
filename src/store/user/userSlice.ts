@@ -6,7 +6,7 @@ export interface UserModel {
   surname?: string;
 }
 
-interface RequestStatus {
+export interface RequestStatus {
   isPending: boolean;
   isDone: boolean;
   error: string;
