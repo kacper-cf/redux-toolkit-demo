@@ -11,13 +11,10 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
     },
   },
-  extraReducers: {
-    [authorize.fulfilled.type]: (state, action) => {
-      if (action.payload) {
-        state.isLoggedIn = true;
-      }
-    },
-  },
+  extraReducers: (builder) =>
+    builder.addCase(authorize.fulfilled, (state, action) => {
+      state.isLoggedIn = Boolean(action.payload);
+    }),
 });
 
 export default authSlice.reducer;
