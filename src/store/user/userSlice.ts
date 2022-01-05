@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "./user";
+import { authorize } from "./user";
 
 export interface UserModel {
   name?: string;
@@ -32,10 +32,10 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.pending, (state) => {
+      .addCase(authorize.pending, (state) => {
         state.fetchUserRequest.isPending = true;
       })
-      .addCase(fetchUser.fulfilled, (state, action) => {
+      .addCase(authorize.fulfilled, (state, action) => {
         state.fetchUserRequest.isPending = false;
         state.fetchUserRequest.isDone = true;
 
@@ -43,7 +43,7 @@ const userSlice = createSlice({
           state.user = action.payload;
         }
       })
-      .addCase(fetchUser.rejected, (state, action) => {
+      .addCase(authorize.rejected, (state, action) => {
         state.fetchUserRequest.isPending = false;
         state.fetchUserRequest.isDone = false;
         state.fetchUserRequest.error =

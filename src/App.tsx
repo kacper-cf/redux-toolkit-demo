@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Counter } from "./counter/counter";
 import { decrement, increment } from "./store/counter/counterSlice";
 import { AppDispatch, AppState } from "./store/store";
-import { fetchUser } from "./store/user/user";
+import { authorize } from "./store/user/user";
 import { UserPanel } from "./userPanel/userPanel";
 
 function App() {
@@ -14,8 +14,9 @@ function App() {
   );
 
   const reloadUser = useCallback(async () => {
-    dispatch(fetchUser());
+    dispatch(authorize());
   }, []);
+
   const incrementByOne = useCallback(() => dispatch(increment()), []);
   const decrementByOne = useCallback(() => dispatch(decrement()), []);
 
