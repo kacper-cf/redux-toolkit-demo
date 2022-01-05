@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { UserModel } from "./userSlice";
 
-export const fetchUser = createAsyncThunk<UserModel>(
+export const authorize = createAsyncThunk<UserModel>(
   "user/fetch-user",
   async () => {
     const response = await axios.get(
